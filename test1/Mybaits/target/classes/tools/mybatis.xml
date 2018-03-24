@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--<configuration>-->
+        <!--加载类路径下的属性文件 ;-->
+        <!--<properties resource="db.properties"/>-->
+    <!--调用了该属性文件后,我们想要更改变数据库的信息,就直接从属性文件中获得-->
+        <!--自动扫描model下的类型，使得在后续配置文件sql.xml中使用resultType的时候，可以直接使用student,而不必写全model.student-->
+    <typeAliases> <!-- 设置类型别名 -->
+        <package name="model"/>
+    </typeAliases>
+    <!-- 设置一个默认的连接环境信息 -->
+    <environments default="development">
+        <!-- 连接环境信息，取一个任意唯一的名字 -->
+        <environment id="development">
+            <!-- mybatis使用jdbc事务管理方式 -->
+            <transactionManager type="JDBC"/>
+            <!-- mybatis使用连接池方式来获取连接 -->
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/studnet?useSSL=false&amp;characterEncoding=UTF-8"/>
+                <property name="username" value="root"/>
+                <property name="password" value=""/>
+                <!--其作用主要是提供连接数据库用的驱动，数据库名称，编码方式，账号密码-->
+
+            </dataSource>
+        </environment>
+    </environments>
+    <!-- 加载映射文件,也就是Sql语句文件-->
+    <mappers>
+        <!--<mapper resource="tools.student.xml"/>-->
+        <mapper class="mapper.StudentMapper"/>
+        <mapper class="mapper.TeacherMapper"/>
+        <!--这里很重要   ,mapper class 映射  注解类class文件-->
+        <!--mapper resource 映射注解类 XML文件  千万千万别搞错了-->
+    </mappers>
+</configuration>

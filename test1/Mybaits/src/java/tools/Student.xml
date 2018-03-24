@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.StudentMapper">
+    <insert id="add" parameterType="Student" >
+        insert into students ( name ) values (#{name})
+    </insert>
+
+    <delete id="delete" parameterType="Student" >
+        delete from students where id= #{id}
+    </delete>
+
+    <select id="get" parameterType="long" resultType="Student">
+        select * from   students  where id= #{id}
+    </select>
+
+    <update id="update" parameterType="Student" >
+        update students set name=#{name} where id=#{id}
+    </update>
+    <select id="list" resultType="Student">
+        select * from   students
+    </select>
+</mapper>
+
+<!--if-->
+        <!--如果没有传参数name,那么就查询所有，如果有name参数，那么就进行模糊查询。-->
+        <!--这样只需要定义一条sql语句即可应付多种情况了，在测试的时候，也只需要调用这么一条sql语句list*** 即可。-->
+<!--<select id="list****" resultType="****">-->
+<!--select * from ****-->
+<!--<if test="name!=null">-->
+    <!--where name like concat('%',#{name},'%')-->
+<!--</if>-->
+<!--</select>-->
+
+<!--wehere-->
+        <!--<where>标签会进行自动判断-->
+        <!--如果任何条件都不成立，那么就在sql语句里就不会出现where关键字-->
+        <!--如果有任何条件成立，会自动去掉多出来的 and 或者 or。-->
+<!--<select id="list****" resultType="****">-->
+<!--select * from ****-->
+<!--<where>-->
+    <!--<if test="name!=null">-->
+        <!--and name like concat('%',#{name},'%')-->
+    <!--</if>-->
+    <!--<if test="price!=null and price!=0">-->
+        <!--and price > #{price}-->
+    <!--</if>-->
+<!--</where>-->
+<!--</select>-->
+<!--when otherwise ==if else-->
+        <!--起作用是： 提供了任何条件，就进行条件查询，否则就使用id>1这个条件。-->
+<!--<select id="list****" resultType="****">-->
+<!--SELECT * FROM ****-->
+<!--<where>-->
+    <!--<choose>-->
+        <!--<when test="name != null">-->
+            <!--and name like concat('%',#{name},'%')-->
+        <!--</when>-->
+        <!--<when test="price !=null and price != 0">-->
+            <!--and price > #{price}-->
+        <!--</when>-->
+        <!--<otherwise>-->
+            <!--and id >1-->
+        <!--</otherwise>-->
+    <!--</choose>-->
+<!--</where>-->
+<!--</select>-->
+
+
+        <!-- 本来的模糊查询方式 -->
+        <!--         <select id="listProduct" resultType="Product"> -->
+        <!--             select * from   product_  where name like concat('%',#{0},'%') -->
+        <!--         </select> -->
+
+<!--<select id="listProduct" resultType="Product">-->
+<!--<bind name="likename" value="'%' + name + '%'" />-->
+<!--select * from   product_  where name like #{likename}-->
+<!--</select>-->
+
+        <!--</mapper>-->
+
+
